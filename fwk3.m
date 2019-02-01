@@ -38,7 +38,7 @@ for i=1:loopAmt
         % we need to transform link by link from end effector to the base
         % but we are looping link by link from base to end effector.
         % so we multiply backwards (T*A):
-        T = T*A;70
+        T = T*A;
         F(i,:,i1+1) = transpose(T*endLoc);
     end
     disp("T*base");
