@@ -27,13 +27,18 @@ for i=1:loopAmt
         alpha = P(i1,2);
         r = P(i1,3);
         d = P(i1,4);
+        % https://en.wikipedia.org/wiki/Denavit%E2%80%93Hartenberg_parameters#Denavit%E2%80%93Hartenberg_matrix
+        % called T on wikipedia
         A = [
             cosd(theta),-sind(theta)*cosd(alpha),sind(theta)*sind(alpha),r*cosd(theta);
             sind(theta),cosd(theta)*cosd(alpha),-cosd(theta)*sind(alpha),r*sind(theta);
             0,sind(alpha),cosd(alpha),d;
             0,0,0,1
             ];
-        T = T*A;
+        % we need to transform link by link from end effector to the base
+        % but we are looping link by link from base to end effector.
+        % so we multiply backwards (T*A):
+        T = T*A;70
         F(i,:,i1+1) = transpose(T*endLoc);
     end
     disp("T*base");
